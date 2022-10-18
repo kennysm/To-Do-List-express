@@ -1,5 +1,4 @@
 const express = require("express");
-const checklist = require("../models/checklist");
 
 const router = express.Router();
 
@@ -54,7 +53,7 @@ router.post("/", async (req, res) => {
 
 router.get("/:id", async (req, res) => {
   try {
-    let checklist = await Checklist.findById(req.params.id);
+    let checklist = await Checklist.findById(req.params.id).populate("tasks");
     res.status(200).render("checklists/show", { checklist: checklist });
   } catch (error) {
     res
